@@ -330,11 +330,34 @@ public class Controleur implements Observable {
     }
 
     public void sauvegarderInstrument(File fichier) {
-        // todo
+        try {
+            FileOutputStream fos = new FileOutputStream(fichier);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            // write object to file
+            oos.writeObject(instrument);
+            System.out.println("Done");
+            // closing resources
+            oos.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void chargerInstrument(File fichier) {
-        // todo
+        try {
+            FileInputStream is = new FileInputStream(fichier);
+            ObjectInputStream ois = new ObjectInputStream(is);
+            Instrument inst = (Instrument) ois.readObject();
+            instrument = inst;
+
+            ois.close();
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void renommerInstrument(String nouveauNom) {

@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,7 @@ import javax.swing.Timer;
 /**
  *
  */
-public class Instrument implements Receiver {
+public class Instrument implements Receiver, Serializable {
 
     private ArrayList<Touche> listeTouches = new ArrayList<Touche>();
     private String nomInstrument;
@@ -63,8 +64,17 @@ public class Instrument implements Receiver {
     transient private final HashMap<String, Integer> noteMidiMap = new HashMap<String, Integer>();
     transient private final HashMap<String, Integer> timbreInstruMap = new HashMap<String, Integer>();
 
+
     private static final int VOLUME = 100;
     private static final int PPQ = 24;
+
+    public String toString() {
+        return "Instrument:: " + listeTouches + "nom: " + nomInstrument + "num instru: " + numInstru
+                + "prochain: " + prochainChannel + "fond" + imageFond + "midi: " + midiSynth + "instr: " + instr
+                + "channels: " + mChannels + "Controleur : " + controleur + "channel: " + channelAFermer
+                + "Sequenceur: " +  sequenceur + "transmetteur: " + transmetteur + "mapDurees: " + mapDurees
+                + "NoteMidiMap: " + noteMidiMap + "Timbre: " + timbreInstruMap + "Vol: " + VOLUME + "ppq: " + PPQ;
+    }
 
     public Instrument(ArrayList<Touche> listeTouches, String nomInstrument, Image imageFond, Controleur controleur) {
         this.listeTouches = listeTouches;
